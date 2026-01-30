@@ -1,0 +1,20 @@
+{
+  "name": "rb-sports",
+  "version": "1.0.0",
+  "description": "R&B Sports - Sports News & Red Bull Distribution",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "rss-parser": "^3.13.0",
+    "node-fetch": "^2.7.0",
+    "firebase-admin": "^12.0.0"
+  },
+  "keywords": ["sports", "news", "redbull", "martech", "ga4"],
+  "author": "R&B Sports",
+  "license": "ISC"
+}

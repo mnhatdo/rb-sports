@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu - R&B Sports</title>
+    <meta name="description" content="Tìm hiểu về R&B Sports - Nền tảng tin tức thể thao và nhà phân phối Red Bull.">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 50%, #1a1a1a 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-section {
+            padding: 80px 0;
+        }
+        
+        .about-section.alt {
+            background: var(--gray-100);
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-grid.reverse {
+            direction: rtl;
+        }
+        
+        .about-grid.reverse > * {
+            direction: ltr;
+        }
+        
+        .about-content h2 {
+            font-size: 2rem;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .about-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .about-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .about-card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+        
+        .about-card p {
+            color: var(--gray-600);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-red);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+        
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+        
+        .value-card p {
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, var(--gray-900), #2d2d2d);
+            color: white;
+            padding: 60px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .rss-sources {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .rss-sources h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--gray-900);
+        }
+        
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .source-badge {
+            background: var(--gray-100);
+            padding: 12px 20px;
+            border-radius: var(--border-radius-xl);
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: all var(--transition-fast);
+        }
+        
+        .source-badge:hover {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        .disclaimer h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .disclaimer p {
+            color: #856404;
+            margin: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-grid.reverse {
+                direction: ltr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Trang chủ</a>
+                <a href="/news" class="nav-link">Tin tức</a>
+                <a href="/products" class="nav-link">Sản phẩm</a>
+                <a href="/about" class="nav-link active">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <!-- Hero -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>Về R&B Sports</h1>
+                <p>Nền tảng tin tức thể thao và phân phối Red Bull - Đồng hành cùng đam mê thể thao của bạn</p>
+            </div>
+        </section>
+        
+        <!-- Mission Section -->
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h2>Sứ Mệnh Của Chúng Tôi</h2>
+                        <p>
+                            R&B Sports được thành lập với sứ mệnh kết nối cộng đồng yêu thể thao qua nền tảng tin tức 
+                            đáng tin cậy và các sản phẩm năng lượng chất lượng cao.
+                        </p>
+                        <p>
+                            Với hơn <strong>60 nguồn tin uy tín</strong> từ khắp thế giới, chúng tôi tổng hợp tin tức 
+                            thể thao 24/7, giúp bạn không bỏ lỡ bất kỳ sự kiện nào. Đồng thời, chúng tôi phân phối 
+                            các sản phẩm Red Bull chính hãng để nạp năng lượng cho đam mê của bạn.
+                        </p>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <div class="about-card">
+                            <div class="about-card-icon">🏆</div>
+                            <h3>Chất Lượng Hàng Đầu</h3>
+                            <p>Tin tức chính xác, sản phẩm chính hãng, dịch vụ tốt nhất</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Stats -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">60+</div>
+                        <div class="stat-label">Nguồn tin uy tín</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Cập nhật liên tục</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Tin tức mỗi ngày</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Sản phẩm Red Bull</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Values Section -->
+        <section class="about-section alt">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Giá Trị Cốt Lõi</h2>
+                    <p class="section-subtitle">Những gì định hình R&B Sports</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">∎</div>
+                        <h3>Nhanh Chóng</h3>
+                        <p>Tin tức được cập nhật tự động mỗi 5 phút, đảm bảo bạn không bỏ lỡ điều gì</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">∎</div>
+                        <h3>Chính Xác</h3>
+                        <p>Nguồn tin từ các trang uy tín hàng đầu thế giới như BBC, Sky Sports, Fox Sports</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">∎</div>
+                        <h3>Đa Dạng</h3>
+                        <p>Bao phủ nhiều môn thể thao: bóng đá, boxing, điền kinh và nhiều môn khác</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">∎</div>
+                        <h3>Năng Lượng</h3>
+                        <p>Kết hợp sản phẩm Red Bull chất lượng cao để nạp năng lượng cho đam mê</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- RSS Sources -->
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid reverse">
+                    <div class="about-content">
+                        <h2>Nguồn Tin Tức</h2>
+                        <p>
+                            Chúng tôi sử dụng công nghệ RSS để tổng hợp tin tức từ các trang thể thao 
+                            hàng đầu thế giới. Hệ thống tự động cập nhật liên tục để đảm bảo bạn luôn 
+                            nhận được tin mới nhất.
+                        </p>
+                        
+                        <div class="rss-sources">
+                            <h3>Nguồn tin của chúng tôi</h3>
+                            <div class="sources-grid">
+                                <span class="source-badge">BBC Sport</span>
+                                <span class="source-badge">Sky Sports</span>
+                                <span class="source-badge">Fox Sports</span>
+                                <span class="source-badge">Sportskeeda</span>
+                                <span class="source-badge">Deadspin</span>
+                                <span class="source-badge">Boxing News</span>
+                                <span class="source-badge">Athletics Weekly</span>
+                                <span class="source-badge">Sports Inquirer</span>
+                                <span class="source-badge">SuperWest Sports</span>
+                                <span class="source-badge">Sports News Ireland</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="about-card">
+                            <div class="about-card-icon">◆</div>
+                            <h3>Tự Động Cập Nhật</h3>
+                            <p>Hệ thống RSS tự động lấy tin mới mỗi 5 phút từ tất cả các nguồn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Disclaimer -->
+        <section class="about-section alt">
+            <div class="container">
+                <div class="disclaimer">
+                    <h4>⚠️ Lưu Ý Quan Trọng</h4>
+                    <p>
+                        <strong>R&B Sports</strong> là một website mô phỏng được tạo ra phục vụ môn học 
+                        <strong>Marketing Technology (MarTech)</strong>. Website này được sử dụng để demo 
+                        và thực hành ứng dụng <strong>Google Analytics 4 (GA4)</strong> trong các case study.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        Đây không phải doanh nghiệp thực tế. Không có giao dịch mua bán thực sự nào được thực hiện. 
+                        Tất cả các sản phẩm, giá cả và thông tin chỉ mang tính chất minh họa.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>R&B Sports</h3>
+                    <p>
+                        Nền tảng tin tức thể thao hàng đầu, kết hợp cùng các sản phẩm năng lượng 
+                        chất lượng cao. Đồng hành cùng bạn trên mọi chặng đường thể thao.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Tin tức</h4>
+                    <nav class="footer-links">
+                        <a href="/news">Tất cả tin tức</a>
+                        <a href="/news?category=general">Thể thao chung</a>
+                        <a href="/news?category=boxing">Boxing</a>
+                        <a href="/news?category=athletics">Điền kinh</a>
+                    </nav>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Sản phẩm</h4>
+                    <nav class="footer-links">
+                        <a href="/products">Tất cả sản phẩm</a>
+                        <a href="/product/red-bull-energy-drink">Red Bull Original</a>
+                        <a href="/product/red-bull-sugarfree">Red Bull Sugarfree</a>
+                        <a href="/product/red-bull-zero">Red Bull Zero</a>
+                    </nav>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Hỗ trợ</h4>
+                    <nav class="footer-links">
+                        <a href="/about">Giới thiệu</a>
+                        <a href="/cart">Giỏ hàng</a>
+                        <a href="/admin">Quản trị</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/app.js"></script>
+</body>
+</html>

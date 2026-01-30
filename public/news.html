@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức Thể Thao - R&B Sports</title>
+    <meta name="description" content="Cập nhật tin tức thể thao mới nhất từ Sky Sports, BBC, Fox Sports và nhiều nguồn uy tín khác.">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .news-page-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .news-page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-search-bar {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+        
+        .search-btn {
+            padding: 14px 24px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-red-dark);
+            transform: scale(1.05);
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .category-tab {
+            padding: 12px 28px;
+            background: var(--white);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform var(--transition-fast);
+        }
+        
+        .category-tab:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .category-tab.active {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .category-tab.active::before {
+            transform: scaleX(1);
+        }
+        
+        /* Featured Cards - Stats & Products at top */
+        .featured-card {
+            background: var(--white);
+            border: 2px solid var(--primary-red);
+        }
+        
+        .featured-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+        
+        .stats-card .news-card-content {
+            padding: 30px;
+        }
+        
+        .stats-content {
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        
+        .stats-number {
+            margin-bottom: 15px;
+        }
+        
+        .stats-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .stats-label {
+            color: var(--gray-600);
+            margin-left: 10px;
+        }
+        
+        .stats-info {
+            color: var(--gray-700);
+        }
+        
+        .stats-highlight {
+            color: var(--primary-red);
+        }
+        
+        .products-card .news-card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .products-carousel {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        
+        .products-carousel-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .carousel-product {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .carousel-product.active {
+            display: flex;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .carousel-product.paused {
+            animation-play-state: paused;
+        }
+        
+        .carousel-product img {
+            width: 90px;
+            height: 135px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-product:hover img {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .carousel-product-name {
+            font-size: 1.05rem;
+            color: var(--gray-800);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .carousel-product-price {
+            font-size: 1rem;
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .products-link {
+            width: 100%;
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+        
+        .load-more-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background: var(--gray-100);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: all var(--transition-fast);
+        }
+        
+        .load-more-btn:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+        
+        .sidebar-section {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+        
+        .sidebar-product {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray-100);
+            transition: all var(--transition-fast);
+        }
+        
+        .sidebar-product:last-child {
+            border-bottom: none;
+        }
+        
+        .sidebar-product:hover {
+            transform: translateX(5px);
+        }
+        
+        .sidebar-product img {
+            width: 50px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .sidebar-product-info h4 {
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-product-info p {
+            font-size: 0.9rem;
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .stats-card .news-card-content,
+            .products-card .news-card-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Trang chủ</a>
+                <a href="/news" class="nav-link active">Tin tức</a>
+                <a href="/products" class="nav-link">Sản phẩm</a>
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="news-page-header">
+            <div class="container">
+                <h1>Tin Tức Thể Thao</h1>
+                <p>Cập nhật 24/7 từ các nguồn tin hàng đầu thế giới</p>
+            </div>
+        </div>
+        
+        <section class="section">
+            <div class="container">
+                <!-- Search Bar -->
+                <div class="news-search-bar">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm tin tức..." />
+                    <button class="search-btn" id="searchBtn">▶</button>
+                </div>
+                
+                <!-- Category Tabs -->
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">Tất cả (<span id="totalNews">--</span>)</button>
+                    <button class="category-tab" data-category="general">Thể thao chung</button>
+                    <button class="category-tab" data-category="football">Bóng đá</button>
+                    <button class="category-tab" data-category="basketball">Bóng rổ</button>
+                    <button class="category-tab" data-category="tennis">Tennis</button>
+                    <button class="category-tab" data-category="boxing">Boxing</button>
+                    <button class="category-tab" data-category="mma">MMA</button>
+                    <button class="category-tab" data-category="athletics">Điền kinh</button>
+                    <button class="category-tab" data-category="formula1">Formula 1</button>
+                    <button class="category-tab" data-category="cricket">Cricket</button>
+                    <button class="category-tab" data-category="golf">Golf</button>
+                    <button class="category-tab" data-category="rugby">Rugby</button>
+                </div>
+                
+                <!-- Unified News Page Grid -->
+                <div id="newsPageGrid" class="news-page-grid">
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                    <div class="skeleton-news-card"></div>
+                </div>
+                
+                <button id="loadMoreBtn" class="load-more-btn" style="display: none;">
+                    Tải thêm tin tức
+                </button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        let currentCategory = 'all';
+        let currentOffset = 0;
+        let searchQuery = '';
+        const LIMIT = 20;
+        let allNewsData = [];
+        let fullNewsData = []; // Store all fetched news
+        const displayedTitles = new Set(); // Track displayed news
+        const displayedLinks = new Set();
+        let newsCache = {}; // Cache news by category
+        let shuffledOrder = []; // Cache shuffled order
+        
+        // Debounce helper
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        async function loadNews(reset = false) {
+            if (reset) {
+                currentOffset = 0;
+                allNewsData = [];
+                fullNewsData = [];
+                displayedTitles.clear();
+                displayedLinks.clear();
+                shuffledOrder = [];
+            }
+            
+            // Check cache first
+            const cacheKey = `${currentCategory}_${searchQuery}`;
+            let response;
+            
+            if (newsCache[cacheKey] && !reset) {
+                response = newsCache[cacheKey];
+            } else {
+                response = await RBSports.fetchNews({
+                    category: currentCategory,
+                    limit: searchQuery ? 1000 : 100 // Fetch less initially for speed
+                });
+                
+                // Cache the response
+                if (response.success) {
+                    newsCache[cacheKey] = response;
+                }
+            }
+            
+            if (response.success) {
+                let newsData = response.data;
+                
+                // Deduplicate news
+                const seenTitles = new Set();
+                const seenLinks = new Set();
+                newsData = newsData.filter(item => {
+                    const titleLower = item.title.toLowerCase().trim();
+                    const linkLower = item.link.toLowerCase().trim();
+                    if (seenTitles.has(titleLower) || seenLinks.has(linkLower)) {
+                        return false;
+                    }
+                    seenTitles.add(titleLower);
+                    seenLinks.add(linkLower);
+                    return true;
+                });
+                
+                // Apply search filter
+                if (searchQuery) {
+                    const query = searchQuery.toLowerCase();
+                    newsData = newsData.filter(item => 
+                        item.title.toLowerCase().includes(query) ||
+                        (item.description && item.description.toLowerCase().includes(query)) ||
+                        item.source.toLowerCase().includes(query)
+                    );
+                }
+                
+                // Store full data
+                fullNewsData = newsData;
+                
+                // Get next batch, skipping already displayed items
+                const newItems = [];
+                let checkedCount = 0;
+                for (let i = currentOffset; i < fullNewsData.length && newItems.length < LIMIT; i++) {
+                    checkedCount++;
+                    const item = fullNewsData[i];
+                    const titleLower = item.title.toLowerCase().trim();
+                    const linkLower = item.link.toLowerCase().trim();
+                    
+                    if (!displayedTitles.has(titleLower) && !displayedLinks.has(linkLower)) {
+                        newItems.push(item);
+                        displayedTitles.add(titleLower);
+                        displayedLinks.add(linkLower);
+                    }
+                }
+                
+                // Add new items to display list
+                allNewsData = reset ? newItems : [...allNewsData, ...newItems];
+                currentOffset += checkedCount;
+                
+                renderNews();
+                
+                document.getElementById('totalNews').textContent = response.total;
+                
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                if (currentOffset < fullNewsData.length) {
+                    loadMoreBtn.style.display = 'block';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+        }
+        
+        let allProductsData = [];
+        
+        function renderNews() {
+            const container = document.getElementById('newsPageGrid');
+            
+            if (allNewsData.length > 0) {
+                // Only shuffle once when loading fresh data
+                if (shuffledOrder.length === 0) {
+                    shuffledOrder = [...allNewsData].sort(() => Math.random() - 0.5);
+                } else {
+                    // For load more, just append new items to existing shuffle
+                    const newItems = allNewsData.slice(shuffledOrder.length);
+                    shuffledOrder.push(...newItems);
+                }
+                
+                // Use DocumentFragment for better performance
+                const fragment = document.createDocumentFragment();
+                
+                // Clear only on reset
+                if (allNewsData.length <= LIMIT) {
+                    container.innerHTML = '';
+                }
+                
+                // Render only new items since last render
+                const startIndex = container.querySelectorAll('.news-page-card, .product-carousel-card').length;
+                const itemsToRender = shuffledOrder.slice(startIndex);
+                
+                itemsToRender.forEach((item, idx) => {
+                    const index = startIndex + idx;
+                    fragment.appendChild(RBSports.createNewsPageCard(item, index));
+                    
+                    // Insert product card after every 10 news items
+                    if ((index + 1) % 10 === 0 && allProductsData.length > 0) {
+                        const productCard = createProductCarouselCard(allProductsData);
+                        fragment.appendChild(productCard);
+                    }
+                });
+                
+                container.appendChild(fragment);
+            } else {
+                container.innerHTML = '<p class="text-muted text-center" style="grid-column: 1/-1;">Không tìm thấy tin tức</p>';
+            }
+        }
+        
+        function createProductCarouselCard(products) {
+            const card = document.createElement('div');
+            card.className = 'product-carousel-card';
+            
+            let currentIndex = 0;
+            let intervalId = null;
+            let isHovered = false;
+            
+            const productImages = products.map((product, index) => `
+                <a href="/product/${product.slug}" class="carousel-product-item ${index === 0 ? 'active' : ''}" data-index="${index}">
+                    <div class="carousel-image-wrapper">
+                        <img src="${product.images.main}" alt="${product.name}">
+                    </div>
+                    <div class="carousel-product-name">${product.name}</div>
+                </a>
+            `).join('');
+            
+            card.innerHTML = `
+                <div class="carousel-header">
+                    <h3>⚡ Nạp Năng Lượng</h3>
+                </div>
+                <div class="carousel-container">
+                    <div class="carousel-slide-lines"></div>
+                    ${productImages}
+                </div>
+            `;
+            
+            const items = card.querySelectorAll('.carousel-product-item');
+            const slideLines = card.querySelector('.carousel-slide-lines');
+            
+            function showProduct(index) {
+                // Add exiting class to current active
+                const currentActive = card.querySelector('.carousel-product-item.active');
+                if (currentActive) {
+                    currentActive.classList.add('exiting');
+                    setTimeout(() => {
+                        currentActive.classList.remove('active', 'exiting');
+                    }, 600);
+                }
+                
+                // Trigger slide lines animation
+                slideLines.classList.add('animating');
+                setTimeout(() => {
+                    slideLines.classList.remove('animating');
+                }, 600);
+                
+                // Show new product
+                setTimeout(() => {
+                    items[index].classList.add('active');
+                }, 100);
+            }
+            
+            function nextProduct() {
+                if (!isHovered) {
+                    currentIndex = (currentIndex + 1) % products.length;
+                    showProduct(currentIndex);
+                }
+            }
+            
+            // Auto-rotate every 7 seconds
+            intervalId = setInterval(nextProduct, 7000);
+            
+            // Pause on hover
+            card.addEventListener('mouseenter', () => {
+                isHovered = true;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                isHovered = false;
+            });
+            
+            return card;
+        }
+        
+        async function loadSidebarProducts() {
+            const response = await RBSports.fetchProducts();
+            
+            if (response.success && response.data.length > 0) {
+                const container = document.getElementById('sidebarProducts');
+                
+                // Create carousel items
+                container.innerHTML = response.data.map((product, index) => `
+                    <a href="/product/${product.slug}" class="carousel-product ${index === 0 ? 'active' : ''}" data-index="${index}">
+                        <img src="${product.images.thumbnail}" alt="${product.name}">
+                        <div class="carousel-product-name">${product.name}</div>
+                        <div class="carousel-product-price">Từ ${RBSports.formatPrice(product.variants[0].price)}</div>
+                    </a>
+                `).join('');
+                
+                // Initialize carousel
+                initProductCarousel(response.data.length);
+            }
+        }
+        
+        function initProductCarousel(totalProducts) {
+            if (totalProducts <= 1) return;
+            
+            let currentIndex = 0;
+            let intervalId = null;
+            let isPaused = false;
+            
+            const container = document.getElementById('sidebarProducts');
+            const products = container.querySelectorAll('.carousel-product');
+            
+            function showProduct(index) {
+                products.forEach(p => p.classList.remove('active'));
+                products[index].classList.add('active');
+            }
+            
+            function nextProduct() {
+                if (!isPaused) {
+                    currentIndex = (currentIndex + 1) % totalProducts;
+                    showProduct(currentIndex);
+                }
+            }
+            
+            // Auto-rotate every 5 seconds
+            intervalId = setInterval(nextProduct, 5000);
+            
+            // Pause on hover
+            products.forEach(product => {
+                product.addEventListener('mouseenter', () => {
+                    isPaused = true;
+                });
+                
+                product.addEventListener('mouseleave', () => {
+                    isPaused = false;
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam) {
+                currentCategory = categoryParam;
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.category === categoryParam);
+                });
+            }
+            
+            loadNews(true);
+            
+            // Load products for carousel
+            RBSports.fetchProducts().then(response => {
+                if (response.success && response.data.length > 0) {
+                    allProductsData = response.data;
+                    renderNews(); // Re-render to include product cards
+                }
+            });
+            
+            // Update total count
+            RBSports.fetchNews({ limit: 1 }).then(response => {
+                if (response.success) {
+                    document.getElementById('totalNews').textContent = response.total;
+                }
+            });
+            
+            // Search functionality with debounce
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            const performSearch = () => {
+                searchQuery = searchInput.value.trim();
+                currentOffset = 0;
+                shuffledOrder = [];
+                newsCache = {}; // Clear cache on new search
+                loadNews(true);
+                
+                // GA4 Event
+                if (typeof gtag !== 'undefined' && searchQuery) {
+                    gtag('event', 'search', {
+                        'search_term': searchQuery
+                    });
+                }
+            };
+            
+            const debouncedSearch = debounce(performSearch, 500);
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            searchInput.addEventListener('input', debouncedSearch);
+            
+            // Category tabs
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentCategory = tab.dataset.category;
+                    
+                    // Reset all state variables when changing category
+                    currentOffset = 0;
+                    allNewsData = [];
+                    fullNewsData = [];
+                    displayedTitles.clear();
+                    displayedLinks.clear();
+                    shuffledOrder = [];
+                    newsCache = {}; // Clear cache to force fresh fetch
+                    
+                    // Update URL
+                    const url = new URL(window.location);
+                    if (currentCategory === 'all') {
+                        url.searchParams.delete('category');
+                    } else {
+                        url.searchParams.set('category', currentCategory);
+                    }
+                    window.history.pushState({}, '', url);
+                    
+                    // GA4 Event
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'select_category', {
+                            'category': currentCategory
+                        });
+                    }
+                    
+                    loadNews(true);
+                });
+            });
+            
+            // Load more
+            document.getElementById('loadMoreBtn').addEventListener('click', () => {
+                loadNews(false);
+            });
+        });
+    </script>
+</body>
+</html>

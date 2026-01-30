@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&B Sports - Tin Thể Thao & Năng Lượng</title>
+    <meta name="description" content="R&B Sports - Cập nhật tin tức thể thao mới nhất từ các nguồn hàng đầu thế giới. Nhà phân phối chính thức Red Bull.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- Google Analytics 4 -->
+    <!-- Thay YOUR_GA4_MEASUREMENT_ID bằng ID thực tế -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link active">Trang chủ</a>
+                <a href="/news" class="nav-link">Tin tức</a>
+                <a href="/products" class="nav-link">Sản phẩm</a>
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>
+                            <span>Thế Giới Thể Thao</span><br>
+                            Trong Tầm Tay Bạn
+                        </h1>
+                        <p>
+                            Cập nhật tin tức thể thao nóng hổi từ các nguồn hàng đầu thế giới. 
+                            Từ bóng đá, điền kinh đến boxing - tất cả đều có tại R&B Sports.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="/news" class="btn btn-primary">
+                                Đọc tin ngay
+                            </a>
+                            <a href="/about" class="btn btn-secondary">
+                                Tìm hiểu thêm
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="newsCount">--</span>
+                                <span class="stat-label">Tin mới hôm nay</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">Nguồn tin uy tín</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">Cập nhật liên tục</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Match Scores Section -->
+        <section class="section scores-section" style="background: var(--gray-50); padding: 40px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Kết Quả Trận Đấu</h2>
+                    <p class="section-subtitle">Tỉ số các trận đấu được cập nhật từ nguồn tin tức</p>
+                </div>
+                
+                <div id="matchScores" class="match-scores-container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Featured News Section -->
+        <section class="section news-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Tin Nổi Bật</h2>
+                    <p class="section-subtitle">Những tin tức thể thao mới nhất và đáng chú ý nhất</p>
+                </div>
+                
+                <!-- News Grid with Featured + Regular Cards -->
+                <div id="homeNewsGrid" class="home-news-grid">
+                    <!-- Skeleton loading cards -->
+                    <div class="skeleton-card featured"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+                
+                <!-- News without Images Section -->
+                <h3 class="section-subtitle" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.5rem; color: var(--gray-800);">Tiêu Điểm Khác</h3>
+                <div id="newsWithoutImages" class="news-simple-list">
+                    <div class="skeleton-simple"></div>
+                    <div class="skeleton-simple"></div>
+                    <div class="skeleton-simple"></div>
+                    <div class="skeleton-simple"></div>
+                    <div class="skeleton-simple"></div>
+                    <div class="skeleton-simple"></div>
+                </div>
+                
+                <div class="text-center mt-20">
+                    <a href="/news" class="btn btn-red">
+                        Xem tất cả tin tức
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Energy Banner (Subtle product promotion) -->
+        <section class="energy-banner">
+            <div class="container">
+                <div class="energy-banner-content">
+                    <div class="energy-banner-text">
+                        <h3>Theo dõi thể thao cần năng lượng</h3>
+                        <p>Giữ tinh thần luôn tỉnh táo với đồ uống năng lượng chính hãng</p>
+                    </div>
+                    <a href="/products" class="btn btn-primary">
+                        Khám phá ngay
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Products Section -->
+        <section class="section products-section">
+            <div class="container">
+                <div class="products-intro">
+                    <h2>Nạp Năng Lượng Cho Đam Mê</h2>
+                    <p>R&B Sports tự hào là nhà phân phối chính thức các sản phẩm Red Bull tại Việt Nam</p>
+                </div>
+                
+                <div id="productsGrid" class="products-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-20">
+                    <a href="/products" class="btn btn-red">
+                        Xem tất cả sản phẩm
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>R&B Sports</h3>
+                    <p>
+                        Nền tảng tin tức thể thao hàng đầu, kết hợp cùng các sản phẩm năng lượng 
+                        chất lượng cao. Đồng hành cùng bạn trên mọi chặng đường thể thao.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Tin tức</h4>
+                    <nav class="footer-links">
+                        <a href="/news">Tất cả tin tức</a>
+                        <a href="/news?category=general">Thể thao chung</a>
+                        <a href="/news?category=boxing">Boxing</a>
+                        <a href="/news?category=athletics">Điền kinh</a>
+                    </nav>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Sản phẩm</h4>
+                    <nav class="footer-links">
+                        <a href="/products">Tất cả sản phẩm</a>
+                        <a href="/product/red-bull-energy-drink">Red Bull Original</a>
+                        <a href="/product/red-bull-sugarfree">Red Bull Sugarfree</a>
+                        <a href="/product/red-bull-zero">Red Bull Zero</a>
+                    </nav>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-title">Hỗ trợ</h4>
+                    <nav class="footer-links">
+                        <a href="/about">Giới thiệu</a>
+                        <a href="/cart">Giỏ hàng</a>
+                        <a href="/admin">Quản trị</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="/js/app.js"></script>
+    <script>
+        // Home page specific logic
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fetch and display match scores
+            try {
+                const scoresResponse = await fetch('/api/scores?limit=8');
+                const scoresData = await scoresResponse.json();
+                
+                const scoresContainer = document.getElementById('matchScores');
+                if (scoresData.success && scoresData.scores.length > 0) {
+                    scoresContainer.innerHTML = '<div class="scores-grid"></div>';
+                    const scoresGrid = scoresContainer.querySelector('.scores-grid');
+                    
+                    scoresData.scores.forEach(score => {
+                        const scoreCard = document.createElement('div');
+                        scoreCard.className = 'score-card';
+                        
+                        const winner = score.score_home > score.score_away ? 'home' : 
+                                      score.score_away > score.score_home ? 'away' : 'draw';
+                        
+                        scoreCard.innerHTML = `
+                            <div class="score-card-header">
+                                <span class="score-source">${score.league || score.source}</span>
+                                <span class="score-date">${score.status || 'FT'}</span>
+                            </div>
+                            <div class="score-card-body">
+                                <div class="team ${winner === 'home' ? 'winner' : ''}">
+                                    <span class="team-name" title="${score.team_home}">${score.team_home}</span>
+                                    <span class="team-score">${score.score_home}</span>
+                                </div>
+                                <div class="score-divider">-</div>
+                                <div class="team ${winner === 'away' ? 'winner' : ''}">
+                                    <span class="team-score">${score.score_away}</span>
+                                    <span class="team-name" title="${score.team_away}">${score.team_away}</span>
+                                </div>
+                            </div>
+                            <a href="${score.link}" target="_blank" rel="noopener" class="score-link">
+                                Xem chi tiết ▶
+                            </a>
+                        `;
+                        
+                        scoresGrid.appendChild(scoreCard);
+                    });
+                } else {
+                    scoresContainer.innerHTML = '<p class="text-muted text-center">Chưa có kết quả trận đấu nào</p>';
+                }
+            } catch (error) {
+                console.error('Error loading scores:', error);
+                document.getElementById('matchScores').innerHTML = '<p class="text-muted text-center">Không thể tải kết quả trận đấu</p>';
+            }
+            
+            // Fetch and display news - HOME PAGE LOGIC
+            const newsResponse = await RBSports.fetchNews({ limit: 100 });
+            
+            if (newsResponse.success && newsResponse.data.length > 0) {
+                const allNews = newsResponse.data;
+                
+                // Deduplicate news by title and link
+                const seenTitles = new Set();
+                const seenLinks = new Set();
+                const uniqueNews = allNews.filter(item => {
+                    const titleLower = item.title.toLowerCase().trim();
+                    const linkLower = item.link.toLowerCase().trim();
+                    if (seenTitles.has(titleLower) || seenLinks.has(linkLower)) {
+                        return false;
+                    }
+                    seenTitles.add(titleLower);
+                    seenLinks.add(linkLower);
+                    return true;
+                });
+                
+                // Filter for homepage: only from specific sources with images
+                const allowedSources = ['Fox Sports', 'Deadspin', 'Sky Sports', 'Sportsnet', 'Sportskeeda', 'Inquirer Sports'];
+                const newsWithImages = uniqueNews.filter(item => 
+                    item.image && allowedSources.includes(item.source)
+                );
+                const newsWithoutImages = uniqueNews.filter(item => !item.image);
+                
+                // Update news count
+                document.getElementById('newsCount').textContent = allNews.length + '+';
+                
+                // Render Home News Grid with Featured Card
+                const homeNewsGrid = document.getElementById('homeNewsGrid');
+                if (newsWithImages.length > 0) {
+                    homeNewsGrid.innerHTML = '';
+                    
+                    newsWithImages.slice(0, 11).forEach((item, index) => {
+                        const card = RBSports.createHomeNewsCard(item, index);
+                        homeNewsGrid.appendChild(card);
+                    });
+                } else {
+                    homeNewsGrid.innerHTML = '<p class="text-muted text-center" style="grid-column: 1/-1;">Đang tải tin tức...</p>';
+                }
+                
+                // Render News without Images with description
+                const newsWithoutImagesContainer = document.getElementById('newsWithoutImages');
+                const limitedWithoutImages = newsWithoutImages.slice(0, 6);
+                if (limitedWithoutImages.length > 0) {
+                    newsWithoutImagesContainer.innerHTML = '';
+                    limitedWithoutImages.forEach((item, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'simple-news-item';
+                        card.innerHTML = `
+                            <a href="${item.link}" target="_blank" rel="noopener">
+                                <h4 class="simple-news-title">${item.title}</h4>
+                                <p class="simple-news-desc">${RBSports.truncateText(RBSports.stripHtml(item.description), 100)}</p>
+                                <div class="simple-news-meta">
+                                    <span class="news-source">${item.source}</span>
+                                    <span>${RBSports.formatDate(item.pubDate)}</span>
+                                </div>
+                            </a>
+                        `;
+                        newsWithoutImagesContainer.appendChild(card);
+                    });
+                } else {
+                    newsWithoutImagesContainer.style.display = 'none';
+                }
+            } else {
+                document.getElementById('homeNewsGrid').innerHTML = '<p class="text-muted text-center" style="grid-column: 1/-1;">Không thể tải tin tức. Vui lòng thử lại sau.</p>';
+                document.getElementById('newsWithoutImages').innerHTML = '';
+            }
+            
+            // Fetch and display products
+            const productsResponse = await RBSports.fetchProducts();
+            
+            if (productsResponse.success && productsResponse.data.length > 0) {
+                const productsGrid = document.getElementById('productsGrid');
+                productsGrid.innerHTML = '';
+                
+                productsResponse.data.forEach(product => {
+                    productsGrid.appendChild(RBSports.createProductCard(product));
+                });
+            } else {
+                document.getElementById('productsGrid').innerHTML = '<p class="text-muted text-center">Không thể tải sản phẩm</p>';
+            }
+        });
+    </script>
+</body>
+</html>

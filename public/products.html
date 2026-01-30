@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản Phẩm Red Bull - R&B Sports</title>
+    <meta name="description" content="Khám phá các sản phẩm Red Bull chính hãng. Nạp năng lượng cho đam mê thể thao của bạn.">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .products-page-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #1a1a1a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .products-page-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 300px;
+            background: url('https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/53e078bcb9/gb_ed_250ml_energy-drink_country_rgb__cold_closed_front_com_full.png/m/200x0') no-repeat center;
+            background-size: contain;
+            opacity: 0.3;
+        }
+        
+        .products-page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .products-page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-info {
+            background: var(--white);
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .brand-features {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        
+        .brand-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray-700);
+        }
+        
+        .brand-feature span {
+            font-size: 1.5rem;
+        }
+        
+        .products-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 60px 0;
+        }
+        
+        .product-full-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+        }
+        
+        .product-full-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .product-full-image {
+            background: linear-gradient(180deg, var(--gray-100) 0%, var(--white) 100%);
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+        
+        .product-full-image img {
+            max-height: 250px;
+            transition: transform var(--transition-normal);
+        }
+        
+        .product-full-card:hover .product-full-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-full-content {
+            padding: 30px;
+        }
+        
+        .product-full-tagline {
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .product-full-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+        
+        .product-full-desc {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .product-attributes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .attribute-tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 5px 12px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+        }
+        
+        .product-full-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .product-full-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .product-full-price small {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Trang chủ</a>
+                <a href="/news" class="nav-link">Tin tức</a>
+                <a href="/products" class="nav-link active">Sản phẩm</a>
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="products-page-header">
+            <div class="container">
+                <h1>Sản Phẩm Red Bull</h1>
+                <p>Nạp năng lượng - Theo đuổi đam mê</p>
+            </div>
+        </div>
+        
+        <!-- Brand Info -->
+        <div class="brand-info">
+            <div class="container">
+                <p style="font-size: 1.2rem; color: var(--gray-700);">
+                    <strong>R&B Sports</strong> tự hào là nhà phân phối chính thức Red Bull tại Việt Nam
+                </p>
+                <div class="brand-features">
+                    <div class="brand-feature">
+                        <span>◆</span>
+                        <p>Sản phẩm chính hãng</p>
+                    </div>
+                    <div class="brand-feature">
+                        <span>◆</span>
+                        <p>Giao hàng toàn quốc</p>
+                    </div>
+                    <div class="brand-feature">
+                        <span>◆</span>
+                        <p>Đảm bảo chất lượng</p>
+                    </div>
+                    <div class="brand-feature">
+                        <span>◆</span>
+                        <p>Ưu đãi hấp dẫn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products -->
+        <section class="section" style="background: var(--gray-100);">
+            <div class="container">
+                <div id="productsGrid" class="products-page-grid">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Banner -->
+        <section class="energy-banner">
+            <div class="container">
+                <div class="energy-banner-content">
+                    <div class="energy-banner-text">
+                        <h3>Sẵn sàng nạp năng lượng?</h3>
+                        <p>Thêm sản phẩm vào giỏ hàng và đặt hàng ngay hôm nay!</p>
+                    </div>
+                    <a href="/cart" class="btn btn-primary">
+                        Xem giỏ hàng
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const response = await RBSports.fetchProducts();
+            
+            if (response.success && response.data.length > 0) {
+                const grid = document.getElementById('productsGrid');
+                grid.innerHTML = '';
+                
+                response.data.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-full-card';
+                    
+                    card.innerHTML = `
+                        <a href="/product/${product.slug}" class="product-full-image">
+                            <img src="${product.images.main}" alt="${product.name}">
+                        </a>
+                        <div class="product-full-content">
+                            <p class="product-full-tagline">${product.tagline}</p>
+                            <h2 class="product-full-name">${product.name}</h2>
+                            <p class="product-full-desc">${product.description.substring(0, 200)}...</p>
+                            
+                            <div class="product-variants" style="margin-bottom: 20px;">
+                                ${product.variants.map((v, i) => `
+                                    <button class="variant-btn ${i === 0 ? 'active' : ''}" data-index="${i}" data-price="${v.price}">
+                                        ${v.size}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="product-full-footer">
+                                <div class="product-full-price">
+                                    <span class="price-display">${RBSports.formatPrice(product.variants[0].price)}</span>
+                                    <br><small>/ 1 lon</small>
+                                </div>
+                                <button class="btn btn-red add-cart-btn">
+                                    Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Variant selection
+                    const variantBtns = card.querySelectorAll('.variant-btn');
+                    const priceDisplay = card.querySelector('.price-display');
+                    
+                    variantBtns.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            variantBtns.forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            priceDisplay.textContent = RBSports.formatPrice(parseInt(btn.dataset.price));
+                        });
+                    });
+                    
+                    // Add to cart
+                    card.querySelector('.add-cart-btn').addEventListener('click', () => {
+                        const activeBtn = card.querySelector('.variant-btn.active');
+                        const variantIndex = parseInt(activeBtn.dataset.index);
+                        RBSports.addToCart(product, product.variants[variantIndex]);
+                    });
+                    
+                    grid.appendChild(card);
+                });
+                
+                // GA4 - View item list
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'view_item_list', {
+                        'item_list_id': 'products',
+                        'item_list_name': 'Sản phẩm Red Bull',
+                        'items': response.data.map((p, i) => ({
+                            'item_id': p.id,
+                            'item_name': p.name,
+                            'index': i,
+                            'price': p.variants[0].price
+                        }))
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

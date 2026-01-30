@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm - R&B Sports</title>
+    <meta name="description" content="Thông tin chi tiết sản phẩm Red Bull chính hãng.">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .breadcrumb {
+            padding: 15px 0;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-red);
+        }
+        
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 40px 0 60px;
+        }
+        
+        .product-gallery {
+            background: linear-gradient(180deg, var(--gray-100) 0%, var(--white) 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+        }
+        
+        .product-gallery img {
+            max-height: 400px;
+            transition: transform var(--transition-normal);
+        }
+        
+        .product-gallery:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-info h1 {
+            font-size: 2.2rem;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+        }
+        
+        .product-tagline {
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .product-slogan {
+            font-style: italic;
+            color: var(--gray-600);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .product-description {
+            color: var(--gray-700);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .product-price-section {
+            background: var(--gray-100);
+            padding: 25px;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 30px;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+        
+        .product-variants {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .variant-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        
+        .variant-btn:hover,
+        .variant-btn.active {
+            border-color: var(--primary-red);
+            background: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .quantity-selector label {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+        
+        .qty-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--gray-100);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: all var(--transition-fast);
+        }
+        
+        .qty-btn:hover {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .qty-input {
+            width: 60px;
+            height: 45px;
+            border: none;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .add-to-cart-section {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .add-to-cart-section .btn {
+            flex: 1;
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+        
+        .product-meta {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .meta-tag {
+            background: var(--gray-100);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-xl);
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+        
+        /* Tabs */
+        .product-tabs {
+            margin-top: 60px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            gap: 5px;
+            border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            font-weight: 600;
+            color: var(--gray-600);
+            position: relative;
+            transition: color var(--transition-fast);
+        }
+        
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform var(--transition-fast);
+        }
+        
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: var(--primary-red);
+        }
+        
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .ingredients-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .ingredient-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .ingredient-card h4 {
+            color: var(--primary-red);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .ingredient-card .amount {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        
+        .ingredient-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .benefit-card {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-red);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .benefit-card h4 {
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .benefit-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 1024px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-gallery {
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Trang chủ</a>
+                <a href="/news" class="nav-link">Tin tức</a>
+                <a href="/products" class="nav-link active">Sản phẩm</a>
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="/">Trang chủ</a> / 
+                <a href="/products">Sản phẩm</a> / 
+                <span id="breadcrumbName">Loading...</span>
+            </nav>
+            
+            <!-- Product Detail -->
+            <div id="productDetail" class="product-detail">
+                <div class="loading" style="grid-column: 1/-1;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            
+            <!-- Product Tabs -->
+            <div id="productTabs" class="product-tabs" style="display: none;">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="ingredients">Thành phần</button>
+                    <button class="tab-btn" data-tab="benefits">Lợi ích</button>
+                    <button class="tab-btn" data-tab="info">Thông tin</button>
+                </div>
+                
+                <div id="ingredientsTab" class="tab-content active">
+                    <!-- Filled by JS -->
+                </div>
+                
+                <div id="benefitsTab" class="tab-content">
+                    <!-- Filled by JS -->
+                </div>
+                
+                <div id="infoTab" class="tab-content">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        let currentProduct = null;
+        let selectedVariantIndex = 0;
+        let quantity = 1;
+        
+        async function loadProduct() {
+            const slug = window.location.pathname.split('/').pop();
+            const response = await RBSports.fetchProduct(slug);
+            
+            if (!response.success || !response.data) {
+                document.getElementById('productDetail').innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-state-icon">😕</div>
+                        <h3>Không tìm thấy sản phẩm</h3>
+                        <p>Sản phẩm bạn tìm kiếm không tồn tại.</p>
+                        <a href="/products" class="btn btn-red" style="margin-top: 20px;">Xem sản phẩm khác</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            currentProduct = response.data;
+            renderProduct();
+            
+            // GA4 - View item
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'view_item', {
+                    'currency': 'VND',
+                    'value': currentProduct.variants[0].price,
+                    'items': [{
+                        'item_id': currentProduct.id,
+                        'item_name': currentProduct.name,
+                        'price': currentProduct.variants[0].price
+                    }]
+                });
+            }
+        }
+        
+        function renderProduct() {
+            const p = currentProduct;
+            document.title = `${p.name} - R&B Sports`;
+            document.getElementById('breadcrumbName').textContent = p.name;
+            
+            document.getElementById('productDetail').innerHTML = `
+                <div class="product-gallery">
+                    <img src="${p.images.main}" alt="${p.name}" id="productImage">
+                </div>
+                
+                <div class="product-info">
+                    <p class="product-tagline">${p.tagline}</p>
+                    <h1>${p.name}</h1>
+                    <p class="product-slogan">"${p.slogan}"</p>
+                    <p class="product-description">${p.description}</p>
+                    
+                    <div class="product-price-section">
+                        <div class="product-price" id="displayPrice">
+                            ${RBSports.formatPrice(p.variants[0].price)}
+                        </div>
+                        <div class="product-variants">
+                            ${p.variants.map((v, i) => `
+                                <button class="variant-btn ${i === 0 ? 'active' : ''}" 
+                                        data-index="${i}" 
+                                        data-price="${v.price}"
+                                        ${!v.inStock ? 'disabled' : ''}>
+                                    ${v.size} ${!v.inStock ? '(Hết hàng)' : ''}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <label>Số lượng:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" id="qtyMinus">−</button>
+                            <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="99">
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="add-to-cart-section">
+                        <button class="btn btn-red" id="addToCartBtn">
+                            🛒 Thêm vào giỏ hàng
+                        </button>
+                        <a href="/cart" class="btn btn-secondary" style="border-color: var(--gray-300); color: var(--gray-700);">
+                            Xem giỏ hàng
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Render tabs
+            renderTabs();
+        }
+        
+        function setupEventListeners() {
+            // Variant buttons
+            document.querySelectorAll('.variant-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.disabled) return;
+                    
+                    document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    selectedVariantIndex = parseInt(btn.dataset.index);
+                    document.getElementById('displayPrice').textContent = 
+                        RBSports.formatPrice(parseInt(btn.dataset.price));
+                });
+            });
+            
+            // Quantity
+            const qtyInput = document.getElementById('qtyInput');
+            
+            document.getElementById('qtyMinus').addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    qtyInput.value = quantity;
+                }
+            });
+            
+            document.getElementById('qtyPlus').addEventListener('click', () => {
+                if (quantity < 99) {
+                    quantity++;
+                    qtyInput.value = quantity;
+                }
+            });
+            
+            qtyInput.addEventListener('change', (e) => {
+                quantity = Math.max(1, Math.min(99, parseInt(e.target.value) || 1));
+                qtyInput.value = quantity;
+            });
+            
+            // Add to cart
+            document.getElementById('addToCartBtn').addEventListener('click', () => {
+                RBSports.addToCart(currentProduct, currentProduct.variants[selectedVariantIndex], quantity);
+            });
+        }
+        
+        function renderTabs() {
+            const p = currentProduct;
+            document.getElementById('productTabs').style.display = 'block';
+            
+            // Ingredients tab
+            document.getElementById('ingredientsTab').innerHTML = `
+                <div class="ingredients-list">
+                    ${p.ingredients.main.map(ing => `
+                        <div class="ingredient-card">
+                            <h4>${ing.name}</h4>
+                            ${ing.amount ? `<p class="amount">${ing.amount}</p>` : ''}
+                            <p>${ing.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Benefits tab
+            const benefitIcons = ['⚡', '💪', '🎯', '🧠'];
+            document.getElementById('benefitsTab').innerHTML = `
+                <div class="benefits-list">
+                    ${p.benefits.map((b, i) => `
+                        <div class="benefit-card">
+                            <div class="benefit-icon">${benefitIcons[i] || '✓'}</div>
+                            <div>
+                                <h4>${b.title}</h4>
+                                <p>${b.description}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Info tab
+            document.getElementById('infoTab').innerHTML = `
+                <div style="max-width: 800px;">
+                    <h4 style="margin-bottom: 15px; color: var(--gray-900);">Thông tin sản phẩm</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 12px 0; color: var(--gray-600);">Thương hiệu</td>
+                            <td style="padding: 12px 0; font-weight: 600;">${p.brand}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 12px 0; color: var(--gray-600);">Danh mục</td>
+                            <td style="padding: 12px 0; font-weight: 600;">${p.category}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 12px 0; color: var(--gray-600);">Calories</td>
+                            <td style="padding: 12px 0; font-weight: 600;">${p.attributes.calories}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 0; color: var(--gray-600);">Kích thước có sẵn</td>
+                            <td style="padding: 12px 0; font-weight: 600;">${p.variants.map(v => v.size).join(', ')}</td>
+                        </tr>
+                    </table>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background: var(--gray-100); border-radius: var(--border-radius-md);">
+                        <p style="color: var(--gray-600); font-size: 0.9rem;">
+                            ⚠️ <strong>Lưu ý:</strong> Không khuyến khích sử dụng cho trẻ em, phụ nữ mang thai hoặc người nhạy cảm với caffeine. 
+                            Người lớn khỏe mạnh có thể tiêu thụ tối đa 400mg caffeine/ngày (theo EFSA, US FDA).
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.tab + 'Tab').classList.add('active');
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+</html>

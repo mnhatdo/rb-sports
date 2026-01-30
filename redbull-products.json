@@ -1,0 +1,298 @@
+{
+  "products": [
+    {
+      "id": "rb-001",
+      "name": "Red Bull Energy Drink",
+      "slug": "red-bull-energy-drink",
+      "tagline": "The Original Red Bull",
+      "slogan": "Vitalizes body and mind®",
+      "description": "Red Bull Energy Drink is appreciated worldwide by top athletes, busy professionals, college students and travelers on long journeys. The original Red Bull Energy Drink. Giving wiiings to people and ideas since 1987.",
+      "category": "Energy Drink",
+      "brand": "Red Bull",
+      "images": {
+        "main": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/53e078bcb9/gb_ed_250ml_energy-drink_country_rgb__cold_closed_front_com_full.png/m/686x0",
+        "thumbnail": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/53e078bcb9/gb_ed_250ml_energy-drink_country_rgb__cold_closed_front_com_full.png/m/339x0"
+      },
+      "variants": [
+        {
+          "size": "250ml",
+          "sku": "RB-250-ORIGINAL",
+          "price": 45000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 500
+        },
+        {
+          "size": "355ml",
+          "sku": "RB-355-ORIGINAL",
+          "price": 55000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 300
+        },
+        {
+          "size": "473ml",
+          "sku": "RB-473-ORIGINAL",
+          "price": 65000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 250
+        }
+      ],
+      "ingredients": {
+        "main": [
+          {
+            "name": "Caffeine",
+            "amount": "80mg per 250ml",
+            "description": "Each 250 ml can of Red Bull Energy Drink contains 80 mg of caffeine. Caffeine helps to improve concentration and increase alertness."
+          },
+          {
+            "name": "Taurine",
+            "description": "One of the most abundant amino acids in the heart and muscles. Taurine is involved in a range of processes including regulation of water/electrolyte balance at the cellular level."
+          },
+          {
+            "name": "B-group vitamins",
+            "details": ["Niacin", "Pantothenic acid", "B6", "B12"],
+            "description": "B-group vitamins contribute to the reduction of tiredness and fatigue."
+          },
+          {
+            "name": "Sugars",
+            "amount": "27g per 250ml",
+            "description": "One 250 ml can of Red Bull Energy Drink contains 27 g of sugars, a type of carbohydrate, which are a fuel source for the body – including the brain and muscles."
+          },
+          {
+            "name": "Water",
+            "description": "Water is the main ingredient of Red Bull. Dedication to its quality contributes to the iconic taste in every sip."
+          }
+        ]
+      },
+      "benefits": [
+        {
+          "title": "Stay alert",
+          "description": "Red Bull Energy Drink contains caffeine that helps to improve concentration and increase alertness."
+        },
+        {
+          "title": "Reduce fatigue",
+          "description": "Red Bull Energy Drink contains B-group vitamins (niacin, pantothenic acid, B6, B12), which contribute to the reduction of tiredness and fatigue."
+        },
+        {
+          "title": "Kickstart your day",
+          "description": "Red Bull Energy Drink contains sugar, a fast-absorbing form of carbohydrate involved in a wide range of biological processes and an energy source for the brain and muscles."
+        }
+      ],
+      "attributes": {
+        "glutenFree": true,
+        "lactoseFree": true,
+        "dairyFree": true,
+        "vegan": true,
+        "calories": "110 kcal per 250ml"
+      },
+      "externalLinks": {
+        "shopee": "https://shopee.vn/search?keyword=red%20bull%20energy%20drink",
+        "facebook": "https://www.facebook.com/redbull",
+        "instagram": "https://www.instagram.com/redbull"
+      }
+    },
+    {
+      "id": "rb-002",
+      "name": "Red Bull Sugarfree",
+      "slug": "red-bull-sugarfree",
+      "tagline": "Wiiings Without Sugar",
+      "slogan": "The formula that gives you wiiings",
+      "description": "Red Bull Sugarfree provides the same great taste and benefits as Red Bull Energy Drink but without sugar. Perfect for those who want to reduce their sugar intake while still enjoying the wings.",
+      "category": "Energy Drink",
+      "brand": "Red Bull",
+      "images": {
+        "main": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/4b21f6a617/gb_sf_250ml_sugarfree_country_rgb__cold_closed_front_com_full.png/m/600x0",
+        "thumbnail": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/4b21f6a617/gb_sf_250ml_sugarfree_country_rgb__cold_closed_front_com_full.png/m/339x0"
+      },
+      "variants": [
+        {
+          "size": "250ml",
+          "sku": "RB-250-SUGARFREE",
+          "price": 47000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 450
+        },
+        {
+          "size": "355ml",
+          "sku": "RB-355-SUGARFREE",
+          "price": 57000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 280
+        },
+        {
+          "size": "473ml",
+          "sku": "RB-473-SUGARFREE",
+          "price": 67000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 200
+        }
+      ],
+      "ingredients": {
+        "main": [
+          {
+            "name": "Caffeine",
+            "amount": "80mg per 250ml",
+            "description": "Each 250 ml can of Red Bull Sugarfree contains 80 mg of caffeine. Caffeine helps to improve concentration and increase alertness."
+          },
+          {
+            "name": "B-group vitamins",
+            "details": ["Niacin", "Pantothenic acid", "B6", "B12"],
+            "description": "B-group vitamins contribute to the reduction of tiredness and fatigue."
+          },
+          {
+            "name": "Sucralose & Acesulfame K",
+            "description": "Sucralose & acesulfame K are among the most-tested and most-used sugar substitutes worldwide."
+          },
+          {
+            "name": "Taurine",
+            "description": "One of the most abundant amino acids in the heart and muscles. Taurine is involved in a range of processes including regulation of water/electrolyte balance at the cellular level."
+          },
+          {
+            "name": "Water",
+            "description": "Water is the main ingredient of Red Bull. Dedication to its quality contributes to the iconic taste in every sip."
+          }
+        ]
+      },
+      "benefits": [
+        {
+          "title": "Stay alert",
+          "description": "Contains caffeine that helps to improve concentration and increase alertness."
+        },
+        {
+          "title": "Reduce fatigue",
+          "description": "Contains B-group vitamins which contribute to the reduction of tiredness and fatigue."
+        },
+        {
+          "title": "Zero sugar",
+          "description": "All the benefits of Red Bull without sugar, using high-quality sugar substitutes."
+        }
+      ],
+      "attributes": {
+        "glutenFree": true,
+        "lactoseFree": true,
+        "dairyFree": true,
+        "vegan": true,
+        "sugarFree": true,
+        "calories": "5 kcal per 250ml"
+      },
+      "externalLinks": {
+        "shopee": "https://shopee.vn/search?keyword=red%20bull%20sugarfree",
+        "facebook": "https://www.facebook.com/redbull",
+        "instagram": "https://www.instagram.com/redbull"
+      }
+    },
+    {
+      "id": "rb-003",
+      "name": "Red Bull Zero",
+      "slug": "red-bull-zero",
+      "tagline": "Zero Calories. 100% Wiiings",
+      "slogan": "The formula that gives you wiiings",
+      "description": "Red Bull Zero delivers the same great taste and functional benefits as Red Bull Energy Drink but with zero calories and zero sugar. Perfect for those seeking an energy boost without compromising their dietary goals.",
+      "category": "Energy Drink",
+      "brand": "Red Bull",
+      "images": {
+        "main": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/e4d03d54d0/int_zr_250ml_energy-drink_country__cold_closed_front_com_full.png/m/600x0",
+        "thumbnail": "https://www.redbull.com/energydrink/v1/resources/storyblok/images/f/287059/528x1348/e4d03d54d0/int_zr_250ml_energy-drink_country__cold_closed_front_com_full.png/m/339x0"
+      },
+      "variants": [
+        {
+          "size": "250ml",
+          "sku": "RB-250-ZERO",
+          "price": 47000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 420
+        },
+        {
+          "size": "355ml",
+          "sku": "RB-355-ZERO",
+          "price": 57000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 260
+        },
+        {
+          "size": "473ml",
+          "sku": "RB-473-ZERO",
+          "price": 67000,
+          "currency": "VND",
+          "inStock": true,
+          "stockQuantity": 180
+        }
+      ],
+      "ingredients": {
+        "main": [
+          {
+            "name": "Caffeine",
+            "amount": "80mg per 250ml",
+            "description": "Each 250 ml can of Red Bull Zero contains 80 mg of caffeine. Caffeine helps to improve concentration and increase alertness."
+          },
+          {
+            "name": "Taurine",
+            "description": "One of the most abundant amino acids in the heart and muscles. Taurine is involved in a range of processes including regulation of water/electrolyte balance at the cellular level."
+          },
+          {
+            "name": "B-group vitamins",
+            "description": "Vitamins are essential micronutrients that are required for maintaining normal body functions."
+          },
+          {
+            "name": "Sucralose, Sodium Cyclamate, Sodium Saccharin",
+            "description": "A combination of low and no-calorie sweeteners are used instead of sugars, and they are some of the most used non-caloric sweeteners worldwide."
+          },
+          {
+            "name": "Water",
+            "description": "Water is the main ingredient of Red Bull. Dedication to its quality contributes to the iconic taste in every sip."
+          }
+        ]
+      },
+      "benefits": [
+        {
+          "title": "Stay alert",
+          "description": "Contains caffeine that helps to improve concentration and increase alertness."
+        },
+        {
+          "title": "Reduce fatigue",
+          "description": "Contains essential B-group vitamins for maintaining normal body functions."
+        },
+        {
+          "title": "Zero calories, zero sugar",
+          "description": "All the benefits of Red Bull with zero calories and zero sugar."
+        }
+      ],
+      "attributes": {
+        "glutenFree": true,
+        "lactoseFree": true,
+        "dairyFree": true,
+        "vegan": true,
+        "sugarFree": true,
+        "zeroCal": true,
+        "calories": "0 kcal per 250ml"
+      },
+      "externalLinks": {
+        "shopee": "https://shopee.vn/search?keyword=red%20bull%20zero",
+        "facebook": "https://www.facebook.com/redbull",
+        "instagram": "https://www.instagram.com/redbull"
+      }
+    }
+  ],
+  "metadata": {
+    "brand": "Red Bull",
+    "brandSlogan": "Giving wiiings to people and ideas since 1987",
+    "companyInfo": {
+      "founded": 1987,
+      "availability": "Available in more than 175 countries",
+      "production": "Austria, Switzerland, and the United States",
+      "safety": "Health authorities around the world have concluded that Red Bull Energy Drink is safe to consume"
+    },
+    "generalInfo": {
+      "caffeineLimit": "Up to 400 mg of caffeine per day is safe for healthy adults (according to EFSA, US FDA and Health Canada)",
+      "purchaseLocations": "Grocery stores, convenience stores, major retailers, gas stations, and online via e-commerce sites"
+    },
+    "lastUpdated": "2026-01-29"
+  }
+}

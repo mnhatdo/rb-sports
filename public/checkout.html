@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - R&B Sports</title>
+    <meta name="description" content="Hoàn tất đơn hàng tại R&B Sports.">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .checkout-header {
+            background: var(--gray-900);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .checkout-steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.5;
+        }
+        
+        .step.active {
+            opacity: 1;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--white);
+            color: var(--gray-900);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .step.active .step-number {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            padding: 40px 0;
+        }
+        
+        .checkout-form {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .form-section {
+            margin-bottom: 35px;
+        }
+        
+        .form-section h3 {
+            font-size: 1.2rem;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+        
+        .form-group label .required {
+            color: var(--primary-red);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+        
+        .form-control.error {
+            border-color: #dc3545;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .order-summary {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+        
+        .order-summary h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .order-item:last-of-type {
+            border-bottom: none;
+        }
+        
+        .order-item img {
+            width: 60px;
+            height: 80px;
+            object-fit: contain;
+            background: var(--gray-100);
+            border-radius: var(--border-radius-sm);
+            padding: 5px;
+        }
+        
+        .order-item-info {
+            flex: 1;
+        }
+        
+        .order-item-info h4 {
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+        
+        .order-item-info p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+        
+        .order-item-price {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .order-totals {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--gray-200);
+        }
+        
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+        }
+        
+        .order-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .order-row.total .value {
+            color: var(--primary-red);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            margin-top: 25px;
+            font-size: 1.1rem;
+        }
+        
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px;
+            animation: modalIn 0.3s ease;
+        }
+        
+        @keyframes modalIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .modal-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        
+        .modal h2 {
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            color: var(--gray-600);
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        .order-id {
+            background: var(--gray-100);
+            padding: 15px;
+            border-radius: var(--border-radius-md);
+            font-weight: 700;
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        
+        .modal-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: var(--border-radius-md);
+            font-size: 0.9rem;
+            color: #856404;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+                order: -1;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="R&B Sports" style="height: 50px; width: auto;">
+                <span>Sports</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Trang chủ</a>
+                <a href="/news" class="nav-link">Tin tức</a>
+                <a href="/products" class="nav-link">Sản phẩm</a>
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </nav>
+            
+            <a href="/cart" class="cart-btn">
+                🛒 Giỏ hàng
+                <span class="cart-count" style="display: none;">0</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <!-- Header -->
+        <div class="checkout-header">
+            <div class="container">
+                <h1>Thanh Toán</h1>
+                <div class="checkout-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span>Giỏ hàng</span>
+                    </div>
+                    <div class="step active">
+                        <span class="step-number">2</span>
+                        <span>Thông tin</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span>Hoàn tất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="section" style="background: var(--gray-100);">
+            <div class="container">
+                <div id="checkoutContent" class="checkout-container">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-icon">✓</div>
+            <h2>Đặt hàng thành công!</h2>
+            <p>Cảm ơn bạn đã đặt hàng tại R&B Sports</p>
+            <div id="orderIdDisplay" class="order-id"></div>
+            <p>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận đơn hàng.</p>
+            
+            <div class="modal-note">
+                ⚠️ <strong>Lưu ý:</strong> Đây là website demo phục vụ môn học MarTech. 
+                Không có giao dịch thực tế nào được thực hiện.
+            </div>
+            
+            <a href="/" class="btn btn-red" style="margin-top: 20px;">
+                Về trang chủ
+            </a>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>© 2026 R&B Sports. Website mô phỏng phục vụ môn học MarTech.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" title="Red Bull Facebook">■</a>
+                    <a href="https://www.instagram.com/redbull" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Red Bull Instagram">◆</a>
+                    <a href="https://www.youtube.com/@redbull" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" title="Red Bull YouTube">▶</a>
+                    <a href="https://shopee.vn/search?keyword=red%20bull" target="_blank" rel="noopener" class="social-link" aria-label="Shopee" title="Mua Red Bull trên Shopee">◉</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        function renderCheckout() {
+            const cart = RBSports.cart();
+            const container = document.getElementById('checkoutContent');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart" style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                        <div style="font-size: 5rem; margin-bottom: 20px;">🛒</div>
+                        <h2>Giỏ hàng trống</h2>
+                        <p style="color: var(--gray-500); margin-bottom: 30px;">Vui lòng thêm sản phẩm trước khi thanh toán</p>
+                        <a href="/products" class="btn btn-red">Xem sản phẩm</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const total = RBSports.getCartTotal();
+            
+            container.innerHTML = `
+                <!-- Form -->
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        <div class="form-section">
+                            <h3>Thông tin người nhận</h3>
+                            <div class="form-group">
+                                <label>Họ và tên <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="customerName" required 
+                                       placeholder="Nhập họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại <span class="required">*</span></label>
+                                <input type="tel" class="form-control" id="phone" required 
+                                       placeholder="VD: 0901234567" pattern="[0-9]{10,11}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Địa chỉ giao hàng</h3>
+                            <div class="form-group">
+                                <label>Địa chỉ đầy đủ <span class="required">*</span></label>
+                                <textarea class="form-control" id="address" required 
+                                          placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Ghi chú</h3>
+                            <div class="form-group">
+                                <label>Ghi chú đơn hàng (tùy chọn)</label>
+                                <textarea class="form-control" id="notes" 
+                                          placeholder="VD: Giao hàng giờ hành chính, gọi trước khi giao..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Phương thức thanh toán</h3>
+                            <div style="background: var(--gray-100); padding: 20px; border-radius: var(--border-radius-md);">
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="radio" name="payment" value="cod" checked>
+                                    <span>Thanh toán khi nhận hàng (COD)</span>
+                                </label>
+                            </div>
+                            <p style="margin-top: 15px; color: var(--gray-500); font-size: 0.9rem;">
+                                Website demo - Không có thanh toán thực tế
+                            </p>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-red submit-btn">
+                            Hoàn tất đặt hàng
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Đơn hàng của bạn</h3>
+                    
+                    ${cart.map(item => `
+                        <div class="order-item">
+                            <img src="${item.image}" alt="${item.productName}">
+                            <div class="order-item-info">
+                                <h4>${item.productName}</h4>
+                                <p>${item.size} × ${item.quantity}</p>
+                            </div>
+                            <div class="order-item-price">
+                                ${RBSports.formatPrice(item.price * item.quantity)}
+                            </div>
+                        </div>
+                    `).join('')}
+                    
+                    <div class="order-totals">
+                        <div class="order-row">
+                            <span>Tạm tính:</span>
+                            <span>${RBSports.formatPrice(total)}</span>
+                        </div>
+                        <div class="order-row">
+                            <span>Phí vận chuyển:</span>
+                            <span style="color: #28a745;">Miễn phí</span>
+                        </div>
+                        <div class="order-row total">
+                            <span>Tổng cộng:</span>
+                            <span class="value">${RBSports.formatPrice(total)}</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/cart" style="display: block; text-align: center; margin-top: 20px; color: var(--gray-600);">
+                        ← Quay lại giỏ hàng
+                    </a>
+                </div>
+            `;
+            
+            // Form submit
+            document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const customerName = document.getElementById('customerName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const notes = document.getElementById('notes').value.trim();
+                
+                // Validation
+                if (!customerName || !phone || !address) {
+                    RBSports.showToast('Vui lòng điền đầy đủ thông tin', 'error');
+                    return;
+                }
+                
+                if (!/^[0-9]{10,11}$/.test(phone)) {
+                    RBSports.showToast('Số điện thoại không hợp lệ', 'error');
+                    return;
+                }
+                
+                // Submit order
+                const submitBtn = document.querySelector('.submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Đang xử lý...';
+                
+                const response = await RBSports.submitOrder({
+                    customerName,
+                    phone,
+                    address,
+                    notes,
+                    items: cart
+                });
+                
+                if (response.success) {
+                    // GA4 - Purchase
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'purchase', {
+                            'transaction_id': response.data.id,
+                            'currency': 'VND',
+                            'value': total,
+                            'items': cart.map(item => ({
+                                'item_id': item.productId,
+                                'item_name': item.productName,
+                                'item_variant': item.size,
+                                'price': item.price,
+                                'quantity': item.quantity
+                            }))
+                        });
+                    }
+                    
+                    // Show success modal
+                    document.getElementById('orderIdDisplay').textContent = response.data.id;
+                    document.getElementById('successModal').classList.add('active');
+                    
+                    // Clear cart
+                    RBSports.clearCart();
+                } else {
+                    RBSports.showToast(response.error || 'Đã xảy ra lỗi', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✅ Hoàn tất đặt hàng';
+                }
+            });
+            
+            // GA4 - Begin checkout
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'begin_checkout', {
+                    'currency': 'VND',
+                    'value': total,
+                    'items': cart.map(item => ({
+                        'item_id': item.productId,
+                        'item_name': item.productName,
+                        'item_variant': item.size,
+                        'price': item.price,
+                        'quantity': item.quantity
+                    }))
+                });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', renderCheckout);
+    </script>
+</body>
+</html>
