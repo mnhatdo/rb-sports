@@ -66,8 +66,6 @@ Script sẽ hướng dẫn bạn từng bước!
 
 Truy cập URL của bạn:
 - Homepage: `https://your-app.onrender.com`
-- Admin: `https://your-app.onrender.com/admin`
-  - Password: **nhatnhatnheo**
 
 ---
 
@@ -82,9 +80,6 @@ Truy cập URL của bạn:
 ### "Website chậm lần đầu"
 → Bình thường! Free tier ngủ sau 15 phút. Cold start ~30s.
 
-### "Admin không vào được"
-→ Password: `nhatnhatnheo` (viết thường, không dấu)
-
 ---
 
 ## 📊 DỰ ÁN ĐÃ KIỂM TRA
@@ -94,7 +89,6 @@ Truy cập URL của bạn:
 ✅ 4 live scores từ ESPN  
 ✅ 3 sản phẩm Red Bull  
 ✅ Giỏ hàng + Checkout hoạt động  
-✅ Admin panel + Authentication  
 ✅ Không có lỗi code  
 ✅ Git clean working tree  
 
@@ -114,7 +108,6 @@ R&B/
 │   ├── index.html         # Homepage
 │   ├── products.html      # Products
 │   ├── news.html          # News aggregator
-│   ├── admin.html         # Admin panel
 │   ├── css/style.css      # Styling
 │   └── js/app.js          # Frontend logic
 ├── CHECKLIST.md           # ⭐ Đọc file này

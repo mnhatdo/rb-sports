@@ -15,7 +15,6 @@
 - ✅ `news.html` - News aggregator
 - ✅ `cart.html` - Shopping cart
 - ✅ `checkout.html` - Checkout form
-- ✅ `admin.html` - Admin panel (password: nhatnhatnheo)
 - ✅ `about.html` - About page
 - ✅ `css/style.css` - Styling
 - ✅ `js/app.js` - Frontend logic
@@ -99,9 +98,6 @@ Sau khi deploy xong (~2-3 phút build):
 # Test homepage
 curl https://your-app.onrender.com
 
-# Test admin (password: nhatnhatnheo)
-https://your-app.onrender.com/admin
-
 # Test API
 https://your-app.onrender.com/api/news?limit=5
 https://your-app.onrender.com/api/products
@@ -123,7 +119,6 @@ https://your-app.onrender.com/api/scores
 | News Page | ✅ Pass | Category filter works |
 | Cart | ✅ Pass | Add/remove items |
 | Checkout | ✅ Pass | Form validation OK |
-| Admin Panel | ✅ Pass | Auth + orders management |
 
 ---
 
@@ -158,7 +153,6 @@ Sau khi deploy thành công:
 ✅ Tin tức cập nhật real-time  
 ✅ Live scores từ ESPN  
 ✅ Đặt hàng Red Bull hoạt động  
-✅ Admin panel bảo mật  
 
 ---
 
@@ -210,11 +204,6 @@ git push
 - Đợi build hoàn tất (2-3 phút)
 - Check Environment Variables
 - Xem Logs để debug
-
-**Admin không vào được?**
-- Password: `nhatnhatnheo`
-- Clear browser cache
-- Thử incognito mode
 
 ---
 

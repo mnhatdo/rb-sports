@@ -13,7 +13,6 @@
 - **RSS News Feed:** 1,066 tin tức từ 100+ nguồn
 - **Live Scores:** 4 trận đấu (ESPN API)
 - **Products:** 3 sản phẩm Red Bull
-- **Admin Panel:** Bảo mật với password `nhatnhatnheo`
 
 ### ✅ Frontend Pages
 - [x] Homepage (`/`) - Hiển thị tin tức nổi bật + sản phẩm
@@ -21,13 +20,11 @@
 - [x] News (`/news`) - Tin tức thể thao với filter theo category
 - [x] Cart (`/cart`) - Giỏ hàng
 - [x] Checkout (`/checkout`) - Đặt hàng
-- [x] Admin (`/admin`) - Quản lý đơn hàng (password protected)
 
 ### ✅ API Endpoints
 - [x] `GET /api/news` - RSS News feed (1066 items)
 - [x] `GET /api/products` - Products list (3 items)
 - [x] `GET /api/scores` - Live scores (4 scores)
-- [x] `GET /api/admin/orders` - Orders management
 - [x] `POST /api/orders` - Create new order
 
 ### ✅ Code Quality
@@ -97,7 +94,6 @@ git push -u origin main
 
 ### 3. Verify Production (2 phút)
 - Truy cập: `https://your-app.onrender.com`
-- Test admin: `/admin` (password: nhatnhatnheo)
 - Kiểm tra API: `/api/news`, `/api/products`
 
 ---
@@ -117,10 +113,6 @@ Một số nguồn RSS bị lỗi do:
 - Lần truy cập đầu chậm ~30s
 - **Giải pháp:** Dùng UptimeRobot ping 5 phút/lần (miễn phí)
 
-### Admin Authentication
-- Password: `nhatnhatnheo`
-- Client-side auth (sessionStorage)
-- Khuyến nghị: Upgrade lên server-side auth cho production
 
 ---
 
@@ -130,7 +122,6 @@ Một số nguồn RSS bị lỗi do:
 ✅ Live scores (ESPN API)  
 ✅ E-commerce Red Bull  
 ✅ Giỏ hàng + Checkout  
-✅ Admin panel đơn hàng  
 ✅ Responsive mobile design  
 ✅ GA4 Analytics integration  
 ✅ SEO friendly  

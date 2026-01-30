@@ -5,11 +5,10 @@
 **Dự án đã sẵn sàng 100% để deploy!**
 
 - ✓ Server chạy ổn định (1078 tin tức, 4 scores)
-- ✓ Tất cả trang hoạt động: index, products, news, admin
+- ✓ Tất cả trang hoạt động: index, products, news, cart, checkout
 - ✓ Không có lỗi code
 - ✓ Git đã khởi tạo và commit
 - ✓ Firebase cấu hình sẵn (optional)
-- ✓ Admin authentication: `nhatnhatnheo`
 
 ---
 
@@ -75,7 +74,6 @@ git push -u origin main
 
 Truy cập các URL sau:
 - Homepage: `https://your-app.onrender.com/`
-- Admin: `https://your-app.onrender.com/admin` (password: nhatnhatnheo)
 - API News: `https://your-app.onrender.com/api/news?limit=5`
 - API Products: `https://your-app.onrender.com/api/products`
 
@@ -143,6 +141,5 @@ Sau khi deploy thành công:
 - ✅ Tin tức cập nhật real-time (RSS)
 - ✅ Live scores từ ESPN
 - ✅ Đặt hàng hoạt động
-- ✅ Admin panel bảo mật
 
 **Good luck! 🚀**
