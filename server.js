@@ -4,27 +4,9 @@ const path = require('path');
 const RSSParser = require('rss-parser');
 const fs = require('fs');
 const fetch = require('node-fetch');
-const mongoose = require('mongoose');
-const Order = require('./models/Order');
 
-// MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rb-sports';
-let isMongoConnected = false;
-
-mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000
-})
-.then(() => {
-    console.log('✓ MongoDB connected successfully');
-    isMongoConnected = true;
-})
-.catch((error) => {
-    console.log('⚠ MongoDB not available - using in-memory storage');
-    console.log('  To enable MongoDB, set MONGODB_URI environment variable');
-    isMongoConnected = false;
-});
+// JSON File Database - Tự động lưu, không cần cấu hình
+const db = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -170,9 +152,7 @@ let scoresCache = {
     expiryTime: 15 * 60 * 1000 // 15 minutes for API data
 };
 
-// Orders storage (in-memory for demo)
-let orders = [];
-let orderCounter = 1000;
+// Orders are now stored in JSON file database (see database.js)
 
 /**
  * Fetch live scores from ESPN API (completely free, no auth required)
@@ -522,13 +502,17 @@ app.get('/api/scores/stats', async (req, res) => {
 
 // System status endpoint
 app.get('/api/status', (req, res) => {
+    const dbInfo = db.getInfo();
+    const stats = db.getStats();
     res.json({
         success: true,
         server: 'running',
-        database: isMongoConnected ? 'mongodb' : 'in-memory',
-        ordersInMemory: orders.length,
+        database: 'JSON File Database',
+        databasePath: dbInfo.filePath,
+        ordersCount: stats.total,
+        stats: stats,
         timestamp: new Date().toISOString(),
-        note: isMongoConnected ? 'Data is persistent' : 'WARNING: In-memory storage - data will be lost on restart. Set MONGODB_URI for persistence.'
+        note: '✓ Data is automatically saved to file - persistent across restarts'
     });
 });
 
@@ -605,73 +589,31 @@ app.post('/api/orders', async (req, res) => {
             return res.status(400).json({ success: false, error: 'Missing required fields' });
         }
         
-        // Generate unique order ID
-        const timestamp = Date.now();
-        const orderId = `ORD-${timestamp}`;
+        // Save to JSON database
+        const order = db.createOrder({
+            customerName,
+            customerPhone,
+            customerEmail: customerEmail || '',
+            customerAddress,
+            items,
+            subtotal: subtotal || items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            shipping: shipping || 30000,
+            total: total || (subtotal + shipping),
+            paymentMethod: paymentMethod || 'cod',
+            notes: notes || ''
+        });
         
-        // Save to MongoDB or in-memory
-        if (isMongoConnected) {
-            const order = new Order({
-                orderId,
-                customerName,
-                customerPhone,
-                customerEmail: customerEmail || '',
-                customerAddress,
-                items,
-                subtotal: subtotal || items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                shipping: shipping || 30000,
-                total: total || (subtotal + shipping),
-                paymentMethod: paymentMethod || 'cod',
-                notes: notes || '',
-                status: 'pending'
-            });
-            
-            await order.save();
-            
-            res.json({
-                success: true,
-                data: {
-                    orderId: order.orderId,
-                    customerName: order.customerName,
-                    total: order.total,
-                    status: order.status,
-                    createdAt: order.createdAt
-                },
-                message: 'Đặt hàng thành công! Chúng tôi sẽ liên hệ bạn sớm.'
-            });
-        } else {
-            // Fallback to in-memory
-            const order = {
-                orderId,
-                customerName,
-                customerPhone,
-                customerEmail: customerEmail || '',
-                customerAddress,
-                items,
-                subtotal: subtotal || items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                shipping: shipping || 30000,
-                total: total || (subtotal + shipping),
-                paymentMethod: paymentMethod || 'cod',
-                notes: notes || '',
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            
-            orders.push(order);
-            
-            res.json({
-                success: true,
-                data: {
-                    orderId: order.orderId,
-                    customerName: order.customerName,
-                    total: order.total,
-                    status: order.status,
-                    createdAt: order.createdAt
-                },
-                message: 'Đặt hàng thành công! Chúng tôi sẽ liên hệ bạn sớm.'
-            });
-        }
+        res.json({
+            success: true,
+            data: {
+                orderId: order.orderId,
+                customerName: order.customerName,
+                total: order.total,
+                status: order.status,
+                createdAt: order.createdAt
+            },
+            message: 'Đặt hàng thành công! Chúng tôi sẽ liên hệ bạn sớm.'
+        });
     } catch (error) {
         console.error('Error creating order:', error);
         res.status(500).json({ success: false, error: 'Failed to create order' });
@@ -681,31 +623,7 @@ app.post('/api/orders', async (req, res) => {
 // Get all orders (admin)
 app.get('/api/admin/orders', async (req, res) => {
     try {
-        let ordersList = [];
-        
-        if (isMongoConnected) {
-            // Get from MongoDB, sorted by newest first
-            const mongoOrders = await Order.find().sort({ createdAt: -1 }).lean();
-            ordersList = mongoOrders.map(order => ({
-                orderId: order.orderId,
-                customerName: order.customerName,
-                customerPhone: order.customerPhone,
-                customerEmail: order.customerEmail,
-                customerAddress: order.customerAddress,
-                items: order.items,
-                subtotal: order.subtotal,
-                shipping: order.shipping,
-                total: order.total,
-                status: order.status,
-                paymentMethod: order.paymentMethod,
-                notes: order.notes,
-                createdAt: order.createdAt,
-                updatedAt: order.updatedAt
-            }));
-        } else {
-            // Fallback to in-memory
-            ordersList = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        }
+        const ordersList = db.getAllOrders();
         
         res.json({
             success: true,
@@ -723,38 +641,20 @@ app.put('/api/admin/orders/:id', async (req, res) => {
         const { status } = req.body;
         const orderId = req.params.id;
         
-        if (isMongoConnected) {
-            const order = await Order.findOneAndUpdate(
-                { orderId },
-                { status, updatedAt: new Date() },
-                { new: true }
-            );
-            
-            if (!order) {
-                return res.status(404).json({ success: false, error: 'Order not found' });
-            }
-            
-            res.json({ 
-                success: true, 
-                data: {
-                    orderId: order.orderId,
-                    status: order.status,
-                    updatedAt: order.updatedAt
-                }
-            });
-        } else {
-            // Fallback to in-memory
-            const order = orders.find(o => o.orderId === orderId);
-            
-            if (!order) {
-                return res.status(404).json({ success: false, error: 'Order not found' });
-            }
-            
-            order.status = status;
-            order.updatedAt = new Date().toISOString();
-            
-            res.json({ success: true, data: order });
+        const order = db.updateOrderStatus(orderId, status);
+        
+        if (!order) {
+            return res.status(404).json({ success: false, error: 'Order not found' });
         }
+        
+        res.json({ 
+            success: true, 
+            data: {
+                orderId: order.orderId,
+                status: order.status,
+                updatedAt: order.updatedAt
+            }
+        });
     } catch (error) {
         console.error('Error updating order:', error);
         res.status(500).json({ success: false, error: 'Failed to update order' });
@@ -766,25 +666,13 @@ app.delete('/api/admin/orders/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
         
-        if (isMongoConnected) {
-            const order = await Order.findOneAndDelete({ orderId });
-            
-            if (!order) {
-                return res.status(404).json({ success: false, error: 'Order not found' });
-            }
-            
-            res.json({ success: true, message: 'Order deleted' });
-        } else {
-            // Fallback to in-memory
-            const index = orders.findIndex(o => o.orderId === orderId);
-            
-            if (index === -1) {
-                return res.status(404).json({ success: false, error: 'Order not found' });
-            }
-            
-            orders.splice(index, 1);
-            res.json({ success: true, message: 'Order deleted' });
+        const deleted = db.deleteOrder(orderId);
+        
+        if (!deleted) {
+            return res.status(404).json({ success: false, error: 'Order not found' });
         }
+        
+        res.json({ success: true, message: 'Order deleted' });
     } catch (error) {
         console.error('Error deleting order:', error);
         res.status(500).json({ success: false, error: 'Failed to delete order' });
