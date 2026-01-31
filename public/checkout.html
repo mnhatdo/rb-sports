@@ -545,13 +545,27 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Đang xử lý...';
                 
-                const response = await RBSports.submitOrder({
+                // Prepare order data matching server API expectations
+                const orderData = {
                     customerName,
-                    phone,
-                    address,
-                    notes,
-                    items: cart
-                });
+                    customerPhone: phone,
+                    customerEmail: document.getElementById('email')?.value || '',
+                    customerAddress: address,
+                    items: cart.map(item => ({
+                        id: item.productId,
+                        name: item.productName,
+                        size: item.size,
+                        price: item.price,
+                        quantity: item.quantity
+                    })),
+                    subtotal: total,
+                    shipping: 0,
+                    total: total,
+                    paymentMethod: 'cod',
+                    notes: notes
+                };
+                
+                const response = await RBSports.submitOrder(orderData);
                 
                 if (response.success) {
                     // GA4 - Purchase
