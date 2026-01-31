@@ -501,18 +501,18 @@
                     <tbody>
                         ${orders.map(order => `
                             <tr>
-                                <td><strong>${order.id}</strong></td>
+                                <td><strong>${order.orderId || order.id}</strong></td>
                                 <td>${order.customerName}</td>
-                                <td>${order.phone}</td>
-                                <td><strong>${formatPrice(order.total)}</strong></td>
+                                <td>${order.customerPhone || order.phone}</td>
+                                <td><strong>${formatPrice(order.total || 0)}</strong></td>
                                 <td><span class="status-badge ${order.status}">${getStatusText(order.status)}</span></td>
                                 <td>${formatDate(order.createdAt)}</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-sm btn-view" onclick="viewOrder('${order.id}')">
+                                        <button class="btn-sm btn-view" onclick="viewOrder('${order.orderId || order.id}')">
                                             Xem
                                         </button>
-                                        <button class="btn-sm btn-delete" onclick="deleteOrder('${order.id}')">
+                                        <button class="btn-sm btn-delete" onclick="deleteOrder('${order.orderId || order.id}')">
                                             Xóa
                                         </button>
                                     </div>
@@ -553,14 +553,18 @@
         }
         
         function viewOrder(orderId) {
-            const order = orders.find(o => o.id === orderId);
-            if (!order) return;
+            const order = orders.find(o => (o.orderId || o.id) === orderId);
+            if (!order) {
+                console.log('Order not found:', orderId, orders);
+                showToast('Không tìm thấy đơn hàng', 'error');
+                return;
+            }
             
             const modalBody = document.getElementById('modalBody');
             modalBody.innerHTML = `
                 <div class="detail-row">
                     <span class="detail-label">Mã đơn hàng:</span>
-                    <span class="detail-value">${order.id}</span>
+                    <span class="detail-value">${order.orderId || order.id}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Khách hàng:</span>
@@ -568,11 +572,11 @@
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Số điện thoại:</span>
-                    <span class="detail-value">${order.phone}</span>
+                    <span class="detail-value">${order.customerPhone || order.phone}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Địa chỉ:</span>
-                    <span class="detail-value">${order.address}</span>
+                    <span class="detail-value">${order.customerAddress || order.address}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Thời gian đặt:</span>
@@ -613,7 +617,7 @@
                 </div>
                 
                 <button class="btn btn-red" style="width: 100%; margin-top: 20px; padding: 15px;" 
-                        onclick="updateOrderStatus('${order.id}')">
+                        onclick="updateOrderStatus('${order.orderId || order.id}')">
                     💾 Lưu thay đổi
                 </button>
             `;
