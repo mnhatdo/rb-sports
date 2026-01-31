@@ -545,25 +545,39 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Đang xử lý...';
                 
+                // Get fresh cart data
+                const currentCart = RBSports.cart();
+                const currentTotal = RBSports.getCartTotal();
+                
+                // Check if cart is empty
+                if (!currentCart || currentCart.length === 0) {
+                    RBSports.showToast('Giỏ hàng trống!', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Hoàn tất đặt hàng';
+                    return;
+                }
+                
                 // Prepare order data matching server API expectations
                 const orderData = {
                     customerName,
                     customerPhone: phone,
                     customerEmail: document.getElementById('email')?.value || '',
                     customerAddress: address,
-                    items: cart.map(item => ({
-                        id: item.productId,
-                        name: item.productName,
-                        size: item.size,
+                    items: currentCart.map(item => ({
+                        id: item.productId || item.id,
+                        name: item.productName || item.name,
+                        size: item.size || '',
                         price: item.price,
                         quantity: item.quantity
                     })),
-                    subtotal: total,
+                    subtotal: currentTotal,
                     shipping: 0,
-                    total: total,
+                    total: currentTotal,
                     paymentMethod: 'cod',
                     notes: notes
                 };
+                
+                console.log('Submitting order:', orderData);
                 
                 const response = await RBSports.submitOrder(orderData);
                 
@@ -571,12 +585,12 @@
                     // GA4 - Purchase
                     if (typeof gtag !== 'undefined') {
                         gtag('event', 'purchase', {
-                            'transaction_id': response.data.id,
+                            'transaction_id': response.data.orderId || response.data.id,
                             'currency': 'VND',
-                            'value': total,
-                            'items': cart.map(item => ({
-                                'item_id': item.productId,
-                                'item_name': item.productName,
+                            'value': currentTotal,
+                            'items': currentCart.map(item => ({
+                                'item_id': item.productId || item.id,
+                                'item_name': item.productName || item.name,
                                 'item_variant': item.size,
                                 'price': item.price,
                                 'quantity': item.quantity
@@ -585,7 +599,7 @@
                     }
                     
                     // Show success modal
-                    document.getElementById('orderIdDisplay').textContent = response.data.id;
+                    document.getElementById('orderIdDisplay').textContent = response.data.orderId || response.data.id;
                     document.getElementById('successModal').classList.add('active');
                     
                     // Clear cart
