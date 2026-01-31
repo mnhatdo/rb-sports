@@ -520,6 +520,18 @@ app.get('/api/scores/stats', async (req, res) => {
     }
 });
 
+// System status endpoint
+app.get('/api/status', (req, res) => {
+    res.json({
+        success: true,
+        server: 'running',
+        database: isMongoConnected ? 'mongodb' : 'in-memory',
+        ordersInMemory: orders.length,
+        timestamp: new Date().toISOString(),
+        note: isMongoConnected ? 'Data is persistent' : 'WARNING: In-memory storage - data will be lost on restart. Set MONGODB_URI for persistence.'
+    });
+});
+
 // Get all news
 app.get('/api/news', async (req, res) => {
     try {
